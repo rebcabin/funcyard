@@ -136,3 +136,10 @@
            (b c a c a b)
            (c b c a b a))
          (transpose (permutations '(a b c))))))
+
+(deftest string-permutations-basic
+  (is (= (string-permutations "meat")
+         '("meat" "meta" "maet" "mate" "mtea" "mtae"
+           "emat" "emta" "eamt" "eatm" "etma" "etam"
+           "amet" "amte" "aemt" "aetm" "atme" "atem"
+           "tmea" "tmae" "tema" "team" "tame" "taem"))))

@@ -2,7 +2,8 @@
 ;;; Distributed under The MIT License (MIT)
 
 (ns funcyard.core
-  (:require clojure.pprint))
+  (:require clojure.pprint
+            clojure.string))
 
 (defn- inc-from-nil [v]
   (if (nil? v), 1, (inc v)))
@@ -65,4 +66,7 @@
            reasm  (mapcat #(map (partial cons %1) %2) pivots subps)]
        reasm
        ))))
+
+(defn string-permutations [s]
+  (map clojure.string/join (permutations s)))
 
