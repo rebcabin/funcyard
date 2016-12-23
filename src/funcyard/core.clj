@@ -80,6 +80,26 @@
   "Map the given function one level down in the collection of collections."
   (map #(map fun %) colls))
 
+;;; TODO: (map-down fun colls level-spec), like Mathematica MapAt
+
+;;      _  __  __ _
+;;  _ _(_)/ _|/ _| |___
+;; | '_| |  _|  _| / -_)
+;; |_| |_|_| |_| |_\___|
+
+(defn riffle
+  ([coll1 coll2] (riffle coll1 coll2 list))
+  ([coll1 coll2 combiner]
+   (map combiner coll1 coll2)))
+
+;;; TODO: ternary and more.
+
+(defn rifflecat
+  ([coll1 coll2]
+   (apply concat (riffle coll1 coll2)))
+  ([coll1 coll2 combiner]
+   (apply concat (riffle coll1 coll2 combiner))))
+
 ;;                 _ _           _ _ _   _
 ;;  __ __ _ _ _ __| (_)_ _  __ _| (_) |_(_)___ ___
 ;; / _/ _` | '_/ _` | | ' \/ _` | | |  _| / -_|_-<
@@ -92,3 +112,4 @@
        ;; https://clojuredocs.org/clojure.core/not-empty
        (not (= (count (into #{} coll))
                (count coll)))))
+

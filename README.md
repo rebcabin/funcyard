@@ -24,6 +24,16 @@ ad-hoc, and filled up your application namespaces with technical debt?
     (permutations        collection                 )
     (string-permutations string                     )
 
+### Mapping
+
+    (map-down-one        function        collections)
+    (riffle              collection1     collection2 [optional-combiner])
+    (rifflecat           collection1     collection2 [optional-combiner])
+
+### Cardinalities
+
+    (has-duplicates      collection                 )
+
 ## Goals
 
 1. Elegant, easy to read.

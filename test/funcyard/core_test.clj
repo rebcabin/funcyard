@@ -34,6 +34,35 @@
     (is (= {}
            (tally #{})))))
 
+;;      _  __  __ _
+;;  _ _(_)/ _|/ _| |___
+;; | '_| |  _|  _| / -_)
+;; |_| |_|_| |_| |_\___|
+
+(deftest riffle-test
+  (testing "riffle")
+  (is (not (seq (riffle () '(1 2 3)))))
+  (is (= '((a 1) (b 2) (c 3))
+         (riffle '(a b c) '(1 2 3))))
+  (is (= '((a 1) (b 2) (c 3))
+         (riffle '(a b c) '(1 2 3) vector)))
+  (is (= '(#{a 1} #{b 2} #{c 3})
+         (riffle '(a b c) '(1 2 3) (comp set list))))
+  (is (= '(#{a 1} #{b 2} #{c 3})
+         (riffle '(a b c) '(1 2 3) (comp set vector)))))
+
+(deftest rifflecat-test
+  (testing "rifflecat")
+  (is (not (seq (rifflecat () '(1 2 3)))))
+  (is (= '(a 1 b 2 c 3)
+         (rifflecat '(a b c) '(1 2 3))))
+  (is (= '(a 1 b 2 c 3)
+         (rifflecat '(a b c) '(1 2 3) vector)))
+  (is (= '(1 a, 2 b, 3 c)
+         (rifflecat '(a b c) '(1 2 3) (comp set list))))
+  (is (= '(1 a, 2 b, 3 c)
+         (rifflecat '(a b c) '(1 2 3) (comp set vector)))))
+
 ;;             _            _
 ;;  _ __  __ _(_)_ ___ __ _(_)___ ___
 ;; | '_ \/ _` | | '_\ V  V / (_-</ -_)
