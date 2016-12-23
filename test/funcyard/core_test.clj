@@ -143,3 +143,36 @@
            "emat" "emta" "eamt" "eatm" "etma" "etam"
            "amet" "amte" "aemt" "aetm" "atme" "atem"
            "tmea" "tmae" "tema" "team" "tame" "taem"))))
+
+;;                       _
+;;  _ __  __ _ _ __ _ __(_)_ _  __ _
+;; | '  \/ _` | '_ \ '_ \ | ' \/ _` |
+;; |_|_|_\__,_| .__/ .__/_|_||_\__, |
+;;            |_|  |_|         |___/
+
+(def colls [['a 'b 'c] ['a 'a 'b] ['a 'c 'b 'd]])
+
+(def colls-2 [[{:suit :H} {:suit :C}] [{:suit :S} {:suit :D}]])
+
+(def colls-3 (flatten colls-2))
+
+(deftest map-down-one-test
+  (is (= colls (map-down-one identity colls)))
+  (is (= [[:H :C] [:S :D]]
+         (map-down-one :suit colls-2)))
+  (is (not-any? #(apply = %)
+                (map-down-one :suit colls-2)))
+  (is (= '(()) (map-down-one identity '(())))))
+
+;;                 _ _           _ _ _   _
+;;  __ __ _ _ _ __| (_)_ _  __ _| (_) |_(_)___ ___
+;; / _/ _` | '_/ _` | | ' \/ _` | | |  _| / -_|_-<
+;; \__\__,_|_| \__,_|_|_||_\__,_|_|_|\__|_\___/__/
+
+(deftest has-duplicates-test
+  (is (not (has-duplicates #{})))
+  (is (not (has-duplicates {})))
+  (is (not (has-duplicates '())))
+  (is (not (has-duplicates [])))
+  (is (not (has-duplicates colls-3)))
+  (is (has-duplicates (conj (map :suit colls-3) :S))))

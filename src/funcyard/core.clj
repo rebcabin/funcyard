@@ -70,3 +70,25 @@
 (defn string-permutations [s]
   (map clojure.string/join (permutations s)))
 
+;;                       _
+;;  _ __  __ _ _ __ _ __(_)_ _  __ _
+;; | '  \/ _` | '_ \ '_ \ | ' \/ _` |
+;; |_|_|_\__,_| .__/ .__/_|_||_\__, |
+;;            |_|  |_|         |___/
+
+(defn map-down-one [fun colls]
+  "Map the given function one level down in the collection of collections."
+  (map #(map fun %) colls))
+
+;;                 _ _           _ _ _   _
+;;  __ __ _ _ _ __| (_)_ _  __ _| (_) |_(_)___ ___
+;; / _/ _` | '_/ _` | | ' \/ _` | | |  _| / -_|_-<
+;; \__\__,_|_| \__,_|_|_||_\__,_|_|_|\__|_\___/__/
+
+(defn has-duplicates [coll]
+  (and (seq coll) ;; idiom for (not (empty? ...))
+       ;; https://clojuredocs.org/clojure.core/empty_q
+       ;; Could use "not-empty."
+       ;; https://clojuredocs.org/clojure.core/not-empty
+       (not (= (count (into #{} coll))
+               (count coll)))))
