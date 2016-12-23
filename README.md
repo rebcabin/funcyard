@@ -17,6 +17,9 @@ ad-hoc, and filled up your application namespaces with technical debt?
     (tally               collection                 )
     (pairwise            binary-function collection )
     (transpose           matrix                     )
+
+### Combinatorics
+
     (combinations        collection      m-at-a-time)
     (permutations        collection                 )
     (string-permutations string                     )
