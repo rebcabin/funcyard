@@ -110,10 +110,10 @@
     (is (= '()
            (transpose [[]])))))
 
-;;               _    _           _   _
-;;  __ ___ _ __ | |__(_)_ _  __ _| |_(_)___ _ _  ___
-;; / _/ _ \ '  \| '_ \ | ' \/ _` |  _| / _ \ ' \(_-<
-;; \__\___/_|_|_|_.__/_|_||_\__,_|\__|_\___/_||_/__/
+;;               _    _           _           _
+;;  __ ___ _ __ | |__(_)_ _  __ _| |_ ___ _ _(_)__ ___
+;; / _/ _ \ '  \| '_ \ | ' \/ _` |  _/ _ \ '_| / _(_-<
+;; \__\___/_|_|_|_.__/_|_||_\__,_|\__\___/_| |_\__/__/
 
 (deftest combinations-basic
   (testing "combinations"
@@ -122,39 +122,15 @@
         (= (partition 1 '(a b))
            (combinations '(a b) 1)))))
 
-;;                          _        _   _
-;;  _ __  ___ _ _ _ __ _  _| |_ __ _| |_(_)___ _ _  ___
-;; | '_ \/ -_) '_| '  \ || |  _/ _` |  _| / _ \ ' \(_-<
-;; | .__/\___|_| |_|_|_\_,_|\__\__,_|\__|_\___/_||_/__/
-;; |_|
-
 (deftest permutations-basic
   (testing "basics of permutations"
     (is (= (permutations ['a 'b 'c 'd])
-           '((a b c d)
-             (a b d c)
-             (a c b d)
-             (a c d b)
-             (a d b c)
-             (a d c b)
-             (b a c d)
-             (b a d c)
-             (b c a d)
-             (b c d a)
-             (b d a c)
-             (b d c a)
-             (c a b d)
-             (c a d b)
-             (c b a d)
-             (c b d a)
-             (c d a b)
-             (c d b a)
-             (d a b c)
-             (d a c b)
-             (d b a c)
-             (d b c a)
-             (d c a b)
-             (d c b a))))))
+           '((a b c d) (a b d c) (a c b d) (a c d b)
+             (a d b c) (a d c b) (b a c d) (b a d c)
+             (b c a d) (b c d a) (b d a c) (b d c a)
+             (c a b d) (c a d b) (c b a d) (c b d a)
+             (c d a b) (c d b a) (d a b c) (d a c b)
+             (d b a c) (d b c a) (d c a b) (d c b a))))))
 
 (deftest testing-permutation-singleton
   (is (= '((a))
@@ -173,10 +149,60 @@
            "amet" "amte" "aemt" "aetm" "atme" "atem"
            "tmea" "tmae" "tema" "team" "tame" "taem"))))
 
-;;  _____ _              _           _      __      __   _    _
-;; |_   _| |_  __ _ _ _ | |__ ___   /_\     \ \    / /__| |__| |__
-;;   | | | ' \/ _` | ' \| / /(_-<  / _ \ _   \ \/\/ / -_) '_ \ '_ \
-;;   |_| |_||_\__,_|_||_|_\_\/__/ /_/ \_(_)   \_/\_/\___|_.__/_.__/
+;; TODO: This is an ideal place to introduce property-based testing.
+(deftest cycle-right-test
+  (is (= () (cycle-right ())))
+  (is (= '(1) (cycle-right '(1))))
+  (is (= '(2 1) (cycle-right '(1 2))))
+  (is (= '(3 1 2) (cycle-right '(1 2 3))))
+  (is (= [] (cycle-right [])))
+  (is (= [1] (cycle-right [1])))
+  (is (= [2 1] (cycle-right [1 2])))
+  (is (= [3 1 2] (cycle-right [1 2 3])))
+  (is (= () (cycle-right 1 ())))
+  (is (= '(1) (cycle-right 1 '(1))))
+  (is (= '(2 1) (cycle-right 1 '(1 2))))
+  (is (= '(3 1 2) (cycle-right 1 '(1 2 3))))
+  (is (= [] (cycle-right 1 [])))
+  (is (= [1] (cycle-right 1 [1])))
+  (is (= [2 1] (cycle-right 1 [1 2])))
+  (is (= [3 1 2] (cycle-right 1 [1 2 3])))
+  (is (= () (cycle-right 2 ())))
+  (is (= '(1) (cycle-right 2 '(1))))
+  (is (= '(1 2) (cycle-right 2 '(1 2))))
+  (is (= '(2 3 1) (cycle-right 2 '(1 2 3))))
+  (is (= [] (cycle-right 2 [])))
+  (is (= [1] (cycle-right 2 [1])))
+  (is (= [1 2] (cycle-right 2 [1 2])))
+  (is (= [2 3 1] (cycle-right 2 [1 2 3])))  )
+
+(deftest cycle-left-test
+  (is (= () (cycle-left ())))
+  (is (= '(1) (cycle-left '(1))))
+  (is (= '(2 1) (cycle-left '(1 2))))
+  (is (= '(2 3 1) (cycle-left '(1 2 3))))
+  (is (= [] (cycle-left [])))
+  (is (= [1] (cycle-left [1])))
+  (is (= [2 1] (cycle-left [1 2])))
+  (is (= [2 3 1] (cycle-left [1 2 3])))
+  (is (= () (cycle-left 1 ())))
+  (is (= '(1) (cycle-left 1 '(1))))
+  (is (= '(2 1) (cycle-left 1 '(1 2))))
+  (is (= '(2 3 1) (cycle-left 1 '(1 2 3))))
+  (is (= [] (cycle-left 1 [])))
+  (is (= [1] (cycle-left 1 [1])))
+  (is (= [2 1] (cycle-left 1 [1 2])))
+  (is (= [2 3 1] (cycle-left 1 [1 2 3])))
+  (is (= () (cycle-left 2 ())))
+  (is (= '(1) (cycle-left 2 '(1))))
+  (is (= '(1 2) (cycle-left 2 '(1 2))))
+  (is (= '(3 1 2) (cycle-left 2 '(1 2 3))))
+  (is (= [] (cycle-left 2 [])))
+  (is (= [1] (cycle-left 2 [1])))
+  (is (= [1 2] (cycle-left 2 [1 2])))
+  (is (= [3 1 2] (cycle-left 2 [1 2 3])))  )
+
+;; Thanks to A. Webb: https://goo.gl/dAlROn
 
 ;; Dot products with 720, 120, 24, 6, 2, 1, 1
 

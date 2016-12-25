@@ -32,10 +32,10 @@
   [matrix]
   (apply map list matrix))
 
-;;               _    _           _   _
-;;  __ ___ _ __ | |__(_)_ _  __ _| |_(_)___ _ _  ___
-;; / _/ _ \ '  \| '_ \ | ' \/ _` |  _| / _ \ ' \(_-<
-;; \__\___/_|_|_|_.__/_|_||_\__,_|\__|_\___/_||_/__/
+;;               _    _           _           _
+;;  __ ___ _ __ | |__(_)_ _  __ _| |_ ___ _ _(_)__ ___
+;; / _/ _ \ '  \| '_ \ | ' \/ _` |  _/ _ \ '_| / _(_-<
+;; \__\___/_|_|_|_.__/_|_||_\__,_|\__\___/_| |_\__/__/
 
 (defn combinations [xs m]
   (cond
@@ -46,12 +46,6 @@
             (concat
              (map #(cons x %) (combinations xs (- m 1)))
              (combinations xs m)))))
-
-;;                          _        _   _
-;;  _ __  ___ _ _ _ __ _  _| |_ __ _| |_(_)___ _ _  ___
-;; | '_ \/ -_) '_| '  \ || |  _/ _` |  _| / _ \ ' \(_-<
-;; | .__/\___|_| |_|_|_\_,_|\__\__,_|\__|_\___/_||_/__/
-;; |_|
 
 (defn permutations [l]
   (let [c (count l)]
@@ -70,12 +64,23 @@
 (defn string-permutations [s]
   (map clojure.string/join (permutations s)))
 
-;;  _____ _              _           _      __      __   _    _
-;; |_   _| |_  __ _ _ _ | |__ ___   /_\     \ \    / /__| |__| |__
-;;   | | | ' \/ _` | ' \| / /(_-<  / _ \ _   \ \/\/ / -_) '_ \ '_ \
-;;   |_| |_||_\__,_|_||_|_\_\/__/ /_/ \_(_)   \_/\_/\___|_.__/_.__/
+(defn cycle-left
+  ([n a-seq] {:pre [(>= n 0)]}
+   (reduce (fn [s _] (cycle-left s)) a-seq (range n)))
+  ([a-seq]
+   (if (seq a-seq)
+     (conj (vec (rest a-seq)) (first a-seq))
+     a-seq)))
 
-;; https://goo.gl/dAlROn
+(defn cycle-right
+  ([n a-seq] {:pre [(>= n 0)]}
+   (reduce (fn [s _] (cycle-right s)) a-seq (range n)))
+  ([a-seq]
+   (if (seq a-seq)
+     (cons (last a-seq) (butlast a-seq))
+     a-seq)))
+
+;; Thanks to A. Webb for the following: https://goo.gl/dAlROn
 
 (def factorials (reductions * 1 (drop 1 (range))))
 

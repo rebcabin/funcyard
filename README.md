@@ -26,6 +26,8 @@ ad-hoc, and filled up your application namespaces with technical debt?
     factorials
     (factoradic          n                          )
     (nth-permutation     source          n          )
+    (cycle-left          collection      [opt-n:1]  )
+    (cycle-right         collection      [opt-n:1]  )
 
 ### Mapping
 
@@ -51,6 +53,7 @@ ad-hoc, and filled up your application namespaces with technical debt?
 3. Test coverage --- Tests are minimal and heavily biased to the happy path. 
 4. Organization is a non-goal. This is a scrap-heap or junkyard full of stuff
    you might need to use, but not sure when or how.
+5. Robustness --- These are prototypes for things we may someday harden.
 
 ## TODO: Future
 
