@@ -70,6 +70,33 @@
 (defn string-permutations [s]
   (map clojure.string/join (permutations s)))
 
+;;  _____ _              _           _      __      __   _    _
+;; |_   _| |_  __ _ _ _ | |__ ___   /_\     \ \    / /__| |__| |__
+;;   | | | ' \/ _` | ' \| / /(_-<  / _ \ _   \ \/\/ / -_) '_ \ '_ \
+;;   |_| |_||_\__,_|_||_|_\_\/__/ /_/ \_(_)   \_/\_/\___|_.__/_.__/
+
+;; https://goo.gl/dAlROn
+
+(def factorials (reductions * 1 (drop 1 (range))))
+
+(defn factoradic [n] {:pre [(>= n 0)]}
+  (loop [a (list 0), n n, p 2]
+    (if (zero? n) a (recur (conj a (mod n p)) (quot n p) (inc p)))))
+
+(defn nth-permutation [s n] {:pre [(< n (nth factorials (count s)))]}
+  (let [d (factoradic n)
+        choices (concat (repeat (- (count s) (count d)) 0) d)]
+    ((reduce
+      (fn [m i]
+        (let [[left [item & right]]
+              (split-at i (m :rem))]
+          (assoc m
+                 :rem (concat left right)
+                 :acc (conj (m :acc) item))))
+      {:rem s :acc []}
+      choices)
+     :acc)))
+
 ;;                       _
 ;;  _ __  __ _ _ __ _ __(_)_ _  __ _
 ;; | '  \/ _` | '_ \ '_ \ | ' \/ _` |

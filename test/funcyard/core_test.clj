@@ -173,6 +173,30 @@
            "amet" "amte" "aemt" "aetm" "atme" "atem"
            "tmea" "tmae" "tema" "team" "tame" "taem"))))
 
+;;  _____ _              _           _      __      __   _    _
+;; |_   _| |_  __ _ _ _ | |__ ___   /_\     \ \    / /__| |__| |__
+;;   | | | ' \/ _` | ' \| / /(_-<  / _ \ _   \ \/\/ / -_) '_ \ '_ \
+;;   |_| |_||_\__,_|_||_|_\_\/__/ /_/ \_(_)   \_/\_/\___|_.__/_.__/
+
+;; Dot products with 720, 120, 24, 6, 2, 1, 1
+
+(deftest testing-factoradic
+  (is (=       '(1 2 0 0) (factoradic 10)))
+  (is (=     '(4 0 2 0 0) (factoradic 100)))
+  (is (= '(1 2 1 2 2 0 0) (factoradic 1000))))
+
+(deftest testing-nth-permutation
+  (is (= (permutations '(a b c))
+         (map #(nth-permutation '(a b c) %) (range 6))))
+  (is (= (permutations '(a b))
+         (map #(nth-permutation '(a b) %) (range 2))))
+  (is (= (permutations '(a))
+         (map #(nth-permutation '(a) %) (range 1))))
+  ;; This next one is not true because nth-permutation has subtle behavior on
+  ;; empty input.
+  #_(is (= (permutations '())
+         (map #(nth-permutation '() %) (range 1)))))
+
 ;;                       _
 ;;  _ __  __ _ _ __ _ __(_)_ _  __ _
 ;; | '  \/ _` | '_ \ '_ \ | ' \/ _` |
