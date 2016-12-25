@@ -12,7 +12,7 @@ binary-fn some-sequence)` applies the binary function to pairs of inputs from
 How many times have you needed little things like this, implemented them again
 ad-hoc, and filled up your application namespaces with technical debt?
 
-## Synopsis
+## Cheat Sheet
 
     (tally               collection                 )
     (pairwise            binary-function collection )
@@ -23,6 +23,9 @@ ad-hoc, and filled up your application namespaces with technical debt?
     (combinations        collection      m-at-a-time)
     (permutations        collection                 )
     (string-permutations string                     )
+    factorials
+    (factoradic          n                          )
+    (nth-permutation     source          n          )
 
 ### Mapping
 
@@ -55,6 +58,10 @@ ad-hoc, and filled up your application namespaces with technical debt?
 2. Leverage clojure.spec
 3. Dotted namespaces; separate group-id from artifact-id
 4. Professional level of robustness, organization, and performance
+
+## References
+
+[A. Webb](https://goo.gl/dAlROn) created "factoradic" and "nth-permutation"<https://goo.gl/dAlROn>
 
 ## License
 

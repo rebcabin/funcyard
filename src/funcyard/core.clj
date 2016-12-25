@@ -81,11 +81,15 @@
 
 (defn factoradic [n] {:pre [(>= n 0)]}
   (loop [a (list 0), n n, p 2]
-    (if (zero? n) a (recur (conj a (mod n p)) (quot n p) (inc p)))))
+    (if (zero? n) a (recur (conj a (mod n p))
+                           (quot n p)
+                           (inc p)))))
 
 (defn nth-permutation [s n] {:pre [(< n (nth factorials (count s)))]}
   (let [d (factoradic n)
-        choices (concat (repeat (- (count s) (count d)) 0) d)]
+        choices (concat (repeat (- (count s) (count d))
+                                0)
+                        d)]
     ((reduce
       (fn [m i]
         (let [[left [item & right]]
